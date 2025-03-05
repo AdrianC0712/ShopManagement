@@ -47,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BFF\DataBase\DataBaseConnection.cs" />
+    <Compile Include="BFF\Models\EmailSender.cs" />
+    <Compile Include="BFF\Models\OTPGenerator.cs" />
     <Compile Include="BFF\Models\User.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>

@@ -18,18 +18,27 @@ namespace ShopManagement
             InitializeComponent();
         }
 
-        private void SaveButton_Click(object sender, EventArgs e)
+        private async void SaveButton_Click(object sender, EventArgs e)
         {
             string userName = LoginBox.Text;
             string password = NewPasswordBox.Text;
             string confirmPassword = ConfirmPasswordBox.Text;
-            bool isOkPassword = false;
             User user = new User();
 
             if ( user.CheckIdetityPassword(password,confirmPassword) == true)
             {
                 user.ResetUserPassword(userName, password);
-            }  
+                await SendOtp();
+            }
+
+            async Task SendOtp()
+            {
+                string otp = OTPGenerator.GenerateOTP(); // Sau GenerateAlphanumericOTP()
+                string email = "liudadonic11@gmail.com";
+
+                Console.WriteLine($"OTP generat: {otp}");
+                await EmailSender.SendEmailAsync(email, otp);
+            }
         }
     }
 }
