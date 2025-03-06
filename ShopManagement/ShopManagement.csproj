@@ -50,6 +50,12 @@
     <Compile Include="BFF\Models\EmailSender.cs" />
     <Compile Include="BFF\Models\OTPGenerator.cs" />
     <Compile Include="BFF\Models\User.cs" />
+    <Compile Include="ConfirmOTP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfirmOTP.Designer.cs">
+      <DependentUpon>ConfirmOTP.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,6 +70,9 @@
     <Compile Include="ResetPasswordForm.Designer.cs">
       <DependentUpon>ResetPasswordForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ConfirmOTP.resx">
+      <DependentUpon>ConfirmOTP.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>

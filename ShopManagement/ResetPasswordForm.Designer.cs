@@ -159,11 +159,11 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.TextBox NewPasswordBox;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox ConfirmPasswordBox;
-        private System.Windows.Forms.TextBox LoginBox;
         private System.Windows.Forms.Button SaveButton;
+        public System.Windows.Forms.TextBox NewPasswordBox;
+        public System.Windows.Forms.TextBox ConfirmPasswordBox;
+        public System.Windows.Forms.TextBox LoginBox;
     }
 }

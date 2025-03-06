@@ -16,6 +16,7 @@ namespace ShopManagement
         public LoginForm()
         {
             InitializeComponent();
+            StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void label1_Click(object sender, EventArgs e)

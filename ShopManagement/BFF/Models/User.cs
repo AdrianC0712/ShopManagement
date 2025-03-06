@@ -87,5 +87,25 @@ namespace ShopManagement.BFF.Models
             return isOk;
         }
 
+        public bool CheckExistUser(string userName)
+        { 
+            DataBaseConnection dataBaseConnection = new DataBaseConnection();
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+            DataTable dataTable = new DataTable();
+
+            string queryCheckExistUser = $"select * from users where Name_of_user = '{userName}'";
+
+            SqlCommand sqlCommand = new SqlCommand(queryCheckExistUser, dataBaseConnection.GetConnection());
+            sqlDataAdapter.SelectCommand = sqlCommand;
+            sqlDataAdapter.Fill(dataTable);
+
+            bool isExist = false;
+
+            if (dataTable.Rows.Count == 1)
+            { 
+                isExist = true;
+            }
+            return isExist;
+        }
     }
 }

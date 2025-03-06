@@ -13,9 +13,13 @@ namespace ShopManagement
 {
     public partial class ResetPasswordForm : Form
     {
+        public string UserName {  get; set; }
+        public string Password { get; set; }
+        public string OTPCod { get; set; }
         public ResetPasswordForm()
         {
             InitializeComponent();
+            StartPosition = FormStartPosition.CenterScreen;
         }
 
         private async void SaveButton_Click(object sender, EventArgs e)
@@ -27,15 +31,23 @@ namespace ShopManagement
 
             if ( user.CheckIdetityPassword(password,confirmPassword) == true)
             {
-                user.ResetUserPassword(userName, password);
-                await SendOtp();
+                if (user.CheckExistUser(userName) == true)
+                {
+                    UserName = userName;
+                    Password = password;
+                    ConfirmOTP confirmOTP = new ConfirmOTP(UserName, Password);
+                    this.Hide();
+                    confirmOTP.Show();
+                    await SendOtp(confirmOTP);
+                }
             }
 
-            async Task SendOtp()
+            async Task SendOtp(ConfirmOTP confirmOTP)
             {
-                string otp = OTPGenerator.GenerateOTP(); // Sau GenerateAlphanumericOTP()
-                string email = "liudadonic11@gmail.com";
-
+                string otp = OTPGenerator.GenerateOTP(); 
+                string email = "adrian07cirlig@gmail.com";
+                OTPCod = otp;
+                confirmOTP.SetOtpCode(otp);
                 Console.WriteLine($"OTP generat: {otp}");
                 await EmailSender.SendEmailAsync(email, otp);
             }
