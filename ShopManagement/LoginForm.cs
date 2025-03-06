@@ -30,6 +30,10 @@ namespace ShopManagement
             string password = PasswordBox.Text;
             User user = new User();
             user.CheckUser(userName, password);
+
+            ShopManagementForm shopManagement = new ShopManagementForm();
+            this.Hide();
+            shopManagement.Show();
         }
 
         private void linkResetPassword_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

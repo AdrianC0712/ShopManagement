@@ -43,7 +43,7 @@ namespace ShopManagement.BFF.Models
 
                 if (VerifyPassword(Password, queryPassword))
                 {
-                    MessageBox.Show("Autentificare reusita!", "Succes!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show("Autentificare reusita!", "Succes!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
@@ -117,8 +117,12 @@ namespace ShopManagement.BFF.Models
             bool isExist = false;
 
             if (dataTable.Rows.Count == 1)
-            { 
+            {
                 isExist = true;
+            }
+            else
+            {
+                MessageBox.Show("Nu a fost identificat asa utilizator!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             return isExist;
         }

@@ -39,7 +39,9 @@ namespace ShopManagement
             }
             else { MessageBox.Show("Codul OTP este introdus gresit!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Information); }
             
-
+            LoginForm loginForm = new LoginForm();
+            this.Hide();
+            loginForm.Show();
         }
     }
 }
