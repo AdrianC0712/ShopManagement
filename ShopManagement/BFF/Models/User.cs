@@ -40,21 +40,22 @@ namespace ShopManagement.BFF.Models
             if (dataTable.Rows.Count == 1)
             {
                 queryPassword = dataTable.Rows[0]["User_password"].ToString();
-                //
+
+                if (VerifyPassword(Password, queryPassword))
+                {
+                    MessageBox.Show("Autentificare reusita!", "Succes!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Autentificare esuata!", "Esuare!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             else 
             {
                 MessageBox.Show("Nu a fost identificat asa utilizator!", "Esuare!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
-            if (VerifyPassword(Password, queryPassword))
-            {
-                MessageBox.Show("Autentificare reusita!", "Succes!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else 
-            {
-                MessageBox.Show("Autentificare esuata!", "Esuare!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+           
         }
 
         public void ResetUserPassword(string userName, string password)
