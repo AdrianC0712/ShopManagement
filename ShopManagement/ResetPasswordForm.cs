@@ -45,7 +45,7 @@ namespace ShopManagement
             async Task SendOtp(ConfirmOTP confirmOTP)
             {
                 string otp = OTPGenerator.GenerateOTP(); 
-                string email = "adrian07cirlig@gmail.com";
+                string email = User.GetEmailUser(UserName);
                 OTPCod = otp;
                 confirmOTP.SetOtpCode(otp);
                 Console.WriteLine($"OTP generat: {otp}");

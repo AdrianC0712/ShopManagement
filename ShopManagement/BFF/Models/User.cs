@@ -107,5 +107,30 @@ namespace ShopManagement.BFF.Models
             }
             return isExist;
         }
+
+        public static string GetEmailUser(string userName)
+        {
+            DataBaseConnection dataBaseConnection = new DataBaseConnection();
+            SqlDataAdapter dataDataAdapter = new SqlDataAdapter();
+            DataTable sqlTable = new DataTable();
+
+            string queryGetEmailUser = $"select User_email from Users where Name_of_user = '{userName}'";
+            SqlCommand sqlCommand = new SqlCommand(queryGetEmailUser, dataBaseConnection.GetConnection());
+            dataDataAdapter.SelectCommand = sqlCommand;
+            dataDataAdapter.Fill(sqlTable);
+
+            string userEmail = null;
+
+            if (sqlTable.Rows.Count == 1)
+            {
+                userEmail = sqlTable.Rows[0]["User_email"].ToString();
+            }
+            else 
+            {
+                MessageBox.Show("Nu a fost identificat asa utilizator!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            return userEmail;
+        }
     }
 }
