@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Windows.Forms;
 using System.Data.Common;
+using BCrypt.Net;
 
 namespace ShopManagement.BFF.Models
 {
@@ -28,14 +29,25 @@ namespace ShopManagement.BFF.Models
             SqlDataAdapter dataAdapter = new SqlDataAdapter();
             DataTable dataTable = new DataTable();
 
-            string querySelectUser = $"select * from Users where Name_of_user = '{UserName}' and User_password = '{Password}'";
-
+            
+            string querySelectUser = $"select User_password from Users where Name_of_user = '{UserName}' ";
+            string queryPassword = null;
             SqlCommand sqlCommand = new SqlCommand(querySelectUser, dataBaseConnection.GetConnection());
 
             dataAdapter.SelectCommand = sqlCommand;
             dataAdapter.Fill(dataTable);
 
             if (dataTable.Rows.Count == 1)
+            {
+                queryPassword = dataTable.Rows[0]["User_password"].ToString();
+                //
+            }
+            else 
+            {
+                MessageBox.Show("Nu a fost identificat asa utilizator!", "Esuare!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            if (VerifyPassword(Password, queryPassword))
             {
                 MessageBox.Show("Autentificare reusita!", "Succes!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -56,9 +68,11 @@ namespace ShopManagement.BFF.Models
             sqlDataAdapter.SelectCommand = sqlCommand;
             sqlDataAdapter.Fill(dataTable);
 
+            string passwordHash = HashPassword(password);
+
             if (dataTable.Rows.Count == 1)
             {
-                string queryUpdatePasswordUser = $"update Users set User_password = '{password}' where Name_of_user = '{userName}'";
+                string queryUpdatePasswordUser = $"update Users set User_password = '{passwordHash}' where Name_of_user = '{userName}'";
                 sqlCommand = new SqlCommand(queryUpdatePasswordUser, dataBaseConnection.GetConnection());
                 sqlDataAdapter.SelectCommand = sqlCommand;
                 sqlDataAdapter.Fill(dataTable);
@@ -131,6 +145,17 @@ namespace ShopManagement.BFF.Models
             }
 
             return userEmail;
+
+        }
+
+        public static string HashPassword(string password)
+        {
+            return BCrypt.Net.BCrypt.EnhancedHashPassword(password); 
+        }
+
+        public static bool VerifyPassword(string password, string hashedPassword)
+        {
+            return BCrypt.Net.BCrypt.EnhancedVerify(password, hashedPassword);
         }
     }
 }
